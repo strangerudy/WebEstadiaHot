@@ -1,0 +1,115 @@
+﻿@model Buya.App.UI.ViewModels.Conta.Login.LoginVM
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+
+@*@Styles.Render("~/Content/css")*@
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/fontawesome-all.min.css" rel="stylesheet" />
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<link href="~/Content/site.css" rel="stylesheet" />
+
+<title>Hotel Buya | @ViewBag.Title</title>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid">
+
+        <div class="row no-gutter">
+
+            <!-- The image half -->
+            <div class="col-md-6 d-none d-md-flex bg-image"></div>
+
+            <!-- The content half -->
+
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+
+                    <!-- Components content-->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-7 mx-auto">
+                                <h3 class="display-4 text-center">@ViewBag.Title</h3>
+                                <p class="text-muted mb-4 text-center">Preencha os campos para acessar a sua conta!</p>
+
+                                <form class="" method="post">
+
+                                    @*<div class="inputWithIcon">
+                                            <input type="text" placeholder="Email">
+                                            <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>*@
+
+                                    <div class="form-group mb-3">
+                                        <label>E-mail</label>
+                                        <div class="inputWithIcon">
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "px-4 text-danger", autofocus = "", placeholder = "Email" })
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </div>
+                                        <small>
+                                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                                        </small>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label>Senha</label>
+                                        <div class="inputWithIconPass">
+                                            @Html.PasswordFor(model => model.Senha, new { @class = "px-4 text-danger", placeholder = "Password" })
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </div>
+                                        <small>
+                                            @Html.ValidationMessageFor(model => model.Senha, null, new { @class = "text-danger" })
+                                        </small>
+                                    </div>
+
+                                    @*<div class="form-group mb-3">
+                                            <label>E-mail</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control rounded-pill border-0 shadow-sm px-4 text-danger", autofocus = "", placeholder = "Email" })
+                                                <span class="fa fa-user" aria-hidden="true"></span>
+
+                                            </div>
+                                            <small>
+                                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                                            </small>
+                                        </div>*@
+
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        @Html.CheckBoxFor(model => model.PermanecerLogado, new { @class = "custom-control-input" })
+                                        @Html.LabelFor(model => model.PermanecerLogado, new { @class = "custom-control-label" })
+                                    </div>
+
+
+                                    <button class="btn btn-danger btn-block text-uppercase mb-2 rounded-pill shadow-sm">
+                                        Entrar
+                                    </button>
+
+
+                                    <div class="text-center d-flex justify-content-between mt-4">
+
+                                        <a class="btn btn-outline-warning" href="@Url.Action("Index", "Home")">Cancelar</a>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.validate.js"></script>
+}
+

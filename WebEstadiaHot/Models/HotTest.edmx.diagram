@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd0888dd8bad49da8f60dba4dfbb291a" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="EstadiaHotModel.Acesso" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.AcessoTipo" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Estado_Quarto" Width="1.5" PointX="3.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Hospedagem" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Pagamento" Width="1.5" PointX="10.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Quarto" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Quarto_Tipo" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Reserva" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Acesso_AcessoTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Hospedagem_Acesso" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Pagamento_Acesso" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Reserva_Acesso" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Quarto_Estado_Quarto" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Hospedagem_Reserva" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Pagamento_Hospedagem" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Quarto_Quarto_Tipo" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Reserva_Quarto" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

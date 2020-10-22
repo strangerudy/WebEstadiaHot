@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Buya.App.UI.Models.Reserva>
+
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_MenuLateral.cshtml";
+}
+
+<h2>Reserva</h2>
+
+<p class="botaolink">
+    @Html.ActionLink("Nova Reserva", "Create")
+</p>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="tabelacabecalho">
+                <th>Nome do Cliente</th>
+                <th>Quarto</th>
+                <th>Data de Reserva</th>
+                <th>Data de CheckIn</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tabelacorpo">
+                    <td class="">@Html.DisplayFor(modelItem => item.Cliente.Acesso.Email)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Quarto.Quarto_Tipo.Quarto_Tipo_Descricao)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Data_Reserva)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Data_Entrada)</td>
+                   
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

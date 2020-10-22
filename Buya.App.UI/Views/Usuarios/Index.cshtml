@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Buya.App.UI.Models.Acesso>
+
+@{
+    ViewBag.Title = "Lista de Usuários";
+    
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="botaolink">
+    @Html.ActionLink("Novo Usuário", "Create")
+</p>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="tabelacabecalho">
+                <th>Nome do Cliente</th>
+                <th>Senha</th>
+                <th>Tipo de Acesso</th>
+                <th>Operações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tabelacorpo">
+                    <td class="">@Html.DisplayFor(modelItem => item.Email)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Senha)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.AcessoTipo.AcessoTipo1)</td>
+
+
+                    <td class="tabelaCorpoOperacoes">
+                        @Html.ActionLink("Alterar", "Edit", new { id = item.AcessoId }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.AcessoId }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.AcessoId })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

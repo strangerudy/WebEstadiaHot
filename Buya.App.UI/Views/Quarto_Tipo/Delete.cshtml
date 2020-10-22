@@ -1,0 +1,41 @@
+﻿@model Buya.App.UI.Models.Quarto_Tipo
+
+@{
+    ViewBag.Title = "Delete";
+    //Layout = "~/Views/Shared/_AcessoPartial.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Tem certeza?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Quarto_Tipo_Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quarto_Tipo_Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor_Tipo_Quarto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor_Tipo_Quarto)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar para a Lista", "Index", null, new { @class = "botao" })
+        </div>
+    }
+</div>

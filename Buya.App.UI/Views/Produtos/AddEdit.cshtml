@@ -1,0 +1,66 @@
+﻿@model DQ.Store.UI.ViewModels.Produtos.AddEdit.ProdutoAddEditVM
+
+@{
+    ViewBag.Title = $"{(Model.Id == 0 ? "Adicionar" : "Editar")} Produto";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form method="post">
+
+    <div class="form-group">
+        <label for="txtNome">Nome:</label>
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", autofocus = "" })
+
+        <small>
+            @Html.ValidationMessageFor(m => m.Nome, null, new { @class = "text-danger" })
+        </small>
+    </div>
+     
+    <div class="form-group">
+        <label>Preço:</label>
+        @Html.TextBoxFor(m => m.Preco, new { @class = "form-control" })
+        <small>
+            @Html.ValidationMessageFor(m => m.Preco, null, new { @class = "text-danger" })
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label>Tipo:</label>
+        @Html.DropDownListFor(m => m.TipoProdutoId,
+            new SelectList(ViewBag.Tipos, "Id", "Nome"), "Seleccione...", new { @class="form-control"})
+
+        <small>
+            @Html.ValidationMessageFor(m => m.TipoProdutoId, null, new { @class = "text-danger" })
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label>Quantidade:</label>
+        @Html.TextBoxFor(m => m.Qtde, new { @class = "form-control" })
+
+        <small>
+            @Html.ValidationMessageFor(m => m.Qtde, null, new { @class = "text-danger" })
+        </small>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="hidden" name="ProdutoId" value="@Model.Id">
+    </div>
+
+    <div>
+        @Html.ValidationSummary(true)
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-outline-secondary">Salvar</button>
+        <a class="btn btn-outline-info" href="@Url.Action("Index")">Cancelar</a>
+    </div>
+    @*Url.Action para funcionar com qualquer Servidor*@
+</form>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.validate.js"></script>
+}

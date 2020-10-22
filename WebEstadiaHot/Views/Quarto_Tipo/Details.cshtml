@@ -1,0 +1,35 @@
+﻿@model WebEstadiaHot.Models.Quarto_Tipo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AcessoPartial.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Quarto_Tipo_Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quarto_Tipo_Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor_Tipo_Quarto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor_Tipo_Quarto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Alterar", "Edit", new { id = Model.Id_Quarto_Tipo }) |
+    @Html.ActionLink("Voltar para a Lista", "Index", null, new { @class = "botao" })
+</p>

@@ -1,0 +1,84 @@
+﻿@model WebEstadiaHot.Models.Hospedagem
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_AcessoPartial.cshtml";
+}
+
+<h2>CheckOut</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id_Hospedagem)
+        @Html.HiddenFor(model => model.Id_Reserva)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reserva.Id_Cliente, "Id_Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Id_Cliente", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Reserva.Id_Cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data_CheckIn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data_CheckIn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data_CheckIn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data_CheckOut, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data_CheckOut, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data_CheckOut, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reserva.Quarto.Quarto_Tipo.Valor_Tipo_Quarto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Reserva.Quarto.Quarto_Tipo.Valor_Tipo_Quarto)
+                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @{ 
+            double dias = Model.Data_CheckOut.Value.Subtract(Model.Data_CheckIn).TotalDays;
+
+            decimal precoDia = Convert.ToInt32(dias) * Model.Reserva.Quarto.Quarto_Tipo.Valor_Tipo_Quarto;
+            
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => dias, "Total de dias", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayTextFor(model => dias)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => precoDia, "Total a pagar", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.LabelFor(model => precoDia, precoDia+" KZ")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="CheckOut" class="btn btn-danger" />
+                @Html.ActionLink("Voltar para a Lista", "Index", null, new { @class = "botao" })
+
+            </div>
+        </div>
+    </div>
+}

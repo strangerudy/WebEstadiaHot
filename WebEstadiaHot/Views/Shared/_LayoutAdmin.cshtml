@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/responsive.css" rel="stylesheet" />
+    <link href="~/Content/novoLook.css" rel="stylesheet" />
+
+    <title>Estádia Hot | @ViewBag.Title</title>
+
+</head>
+
+<body>
+
+    @Html.Partial("_menu")
+
+
+    @*<div class="">
+        @RenderBody()
+    </div>*@
+
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <article class="col-md-4">
+                    <h1>Aviso!</h1>
+                    <p>
+                        Está página é temporária <br />
+                        Estamos a fazer algumas actualizações no sistema <br />
+                        Obrigado pela compreensão.
+                    </p>
+                </article>
+
+                <aside class="col-md-8">
+                    @RenderBody()
+                </aside>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    @*footer class="footer bg-info footer-custom mt-auto py-3">*@
+
+    <footer class="footer bg-danger footer-custom">
+        <div class="container">
+            <span class="text-muted">&copy;@DateTime.Now.Year BUYA Apps</span>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("scripts", false)
+
+</body>
+</html>

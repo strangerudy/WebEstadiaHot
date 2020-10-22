@@ -1,0 +1,10 @@
+﻿@using WebEstadiaHot.UsuarioActual
+
+
+@{
+    if (DadosUsuarioActual.EstadoAutenticacao != 0) 
+    {
+        
+        @Html.ActionLink("Olá, " + DadosUsuarioActual.NomeUsuario + " - Sair", "Login", "Acessos", new { area = "Seguranca" }, new { @class = "nav-link" });
+    }
+}

@@ -1,0 +1,91 @@
+﻿@charset "UTF-8";
+
+.caixaTexto {
+    color: #495057;
+    background-color: #fff;
+    padding: 0.375rem 0.75rem;
+    vertical-align: middle;
+    width: 300px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+.userlink {
+    color: #fff!important;
+    font-size:medium;
+}
+.userlinkDrop {
+    
+    /*background-color: #808080;*/
+}
+    .userlinkDrop a:hover {
+        color: #fff!important;
+        background-color: #808080!important;
+    }
+.botao {
+    color: #fff;
+    background-color: #04091e;
+    padding: 11px;
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    border-radius: 4px;
+}
+
+
+.botaolink a {
+    color: #fff;
+    background-color: #04091e;
+    padding: 9px;
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    border-radius: 4px;
+}
+
+    .botaolink a:hover {
+        background-color: #419eca;
+        color: #fff;
+        padding: 9px;
+        text-align: center;
+        vertical-align: middle;
+        width: 300px;
+        border-radius: 4px;
+    }
+
+.tabelacabecalho {
+    color: #fff;
+    background-color: #04091e;
+    padding: 9px;
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+}
+
+.tabelaCorpoOperacoes {
+    color: #fff;
+    background-color: #04091e;
+}
+
+.table {
+    background-color: #419eca;
+    color: #fff;
+    font-size: medium;
+}
+
+.tabelacorpo {
+    padding: 9px;
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    font-weight: 600;
+}
+/*variar cor das linhas*/
+.table-striped > tbody > tr {
+    /*background-color: #777777;   #333*/
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: #333;
+    color: #fff;
+}

@@ -1,0 +1,79 @@
+﻿
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    
+    @*<a class="navbar-brand" href="#">Buya Hotel</a>*@
+
+    <a class="navbar-brand logo_h" href="#">
+        <img src="~/image/Logo.png" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav menu_nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "Home")">Administração<span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">@Html.ActionLink("Usuários", "Index", "Usuarios", new { area = "Usuarios" }, new { @class = "nav-link" })</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Clientes")">Clientes</a>
+            </li>
+
+            <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quartos</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">@Html.ActionLink("Quarto", "Index", "Quartos", new { area = "Quarto" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Tipo de Quarto", "Index", "Quarto_Tipo", new { area = "Quarto_Tipo" }, new { @class = "nav-link" })</li>
+                </ul>
+            </li>
+
+            <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hospedagem</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">@Html.ActionLink("Reservas", "Index", "Reservas", new { area = "Reservas" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Check-in", "Index", "Hospedagems", new { area = "Hospedagem" }, new { @class = "nav-link" })</li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link userlink dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @User.Identity.Name
+                    </a>
+
+                    <div class="dropdown-menu userlinkDrop" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Trocar Senha</a>
+                        <a class="dropdown-item" href="#">Meu Perfil</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="@Url.Action("LogOut","Conta")">LogOut</a>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("Login","Conta")">Fazer Login</a>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+</nav>
+
+

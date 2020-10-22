@@ -1,0 +1,77 @@
+﻿@model WebEstadiaHot.Models.Reserva
+
+@{
+    ViewBag.Title = "CheckIn";
+    Layout = "~/Views/Shared/_AcessoPartial.cshtml";
+}
+
+<h2>CheckIn</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id_Reserva)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Id_Cliente, "Nome do Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayTextFor(model => model.Acesso.Email)
+
+               @* @Html.DropDownList("Id_Cliente", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.Id_Cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Id_Quarto, "Quarto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DisplayTextFor(model => model.Id_Quarto)*@
+                @Html.DisplayTextFor(model => model.Quarto.Descricao)
+
+               @* @Html.DropDownList("Id_Quarto", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.Id_Quarto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{ 
+            Model.Data_Entrada = DateTime.Now.Date;
+
+            Model.Data_Reserva = DateTime.Today.AddDays(1);
+         }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data_Entrada,"Data de CheckIn", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data_Entrada, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data_Entrada, "", new { @class = "text-danger" })
+
+                @Html.DisplayTextFor(model => model.Data_Entrada)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data_Reserva, "Data de CheckOut", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data_Reserva, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data_Reserva, "", new { @class = "text-danger" })
+
+                @Html.DisplayTextFor(model => model.Data_Reserva)
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="CheckIn" class="btn btn-danger" />
+                @Html.ActionLink("Voltar para a Lista", "Index", null, new { @class = "botao" })
+
+            </div>
+        </div>
+    </div>
+}
+

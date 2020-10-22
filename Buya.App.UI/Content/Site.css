@@ -1,0 +1,183 @@
+﻿/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
+}
+
+label.is-invalid {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+.footer-custom span {
+    color: #fff !important;
+}
+
+/*BEGIN Video background*/
+.video-background-holder {
+    position: relative;
+    background-color: black;
+    height: calc(100vh - 72px);
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+    .video-background-holder video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: 0;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+.video-background-content {
+    position: relative;
+    z-index: 2;
+}
+
+.video-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/*END Video background*/
+
+/*BEGIN Login*/
+.login,
+.image {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url('https://res.cloudinary.com/mhmd/image/upload/v1555917661/art-colorful-contemporary-2047905_dxtao7.jpg');
+    background-image: url('../MediaApp/bg.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+/*END Login*/
+
+
+
+/*BEGIN Login*/
+
+input[type="text"] {
+    width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 12px;
+    margin: 8px 0;
+    outline: none;
+    padding: 6px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+    input[type="text"]:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 8px 0 #dc3545;
+    }
+
+.inputWithIcon input[type="text"] {
+    padding-left: 40px;
+}
+
+.inputWithIcon {
+    position: relative;
+}
+
+    .inputWithIcon i {
+        position: absolute;
+        left: 0;
+        top: 12px;
+        padding: 9px 8px;
+        color: #aaa;
+        transition: 0.3s;
+    }
+
+    .inputWithIcon input[type="text"]:focus + i {
+        color: #dc3545;
+    }
+
+
+    /*PasswordFor Edit*/
+
+input[type="password"] {
+    width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 12px;
+    margin: 8px 0;
+    outline: none;
+    padding: 6px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+    input[type="password"]:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 8px 0 #dc3545;
+    }
+
+.inputWithIconPass input[type="password"] {
+    padding-left: 40px;
+}
+
+.inputWithIconPass {
+    position: relative;
+}
+
+    .inputWithIconPass i {
+        position: absolute;
+        left: 0;
+        top: 12px;
+        padding: 9px 8px;
+        color: #aaa;
+        transition: 0.3s;
+    }
+
+    .inputWithIconPass input[type="password"]:focus + i {
+        color: #dc3545;
+    }
+
+/*.inputWithIcon.inputIconBg i {
+        background-color: #dc3545;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .inputWithIcon.inputIconBg input[type="text"]:focus + i {
+        color: #fff;
+        background-color: dodgerBlue;
+    }*/
+
+
+/*END Login*/

@@ -1,0 +1,737 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EstadiaHotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Acesso">
+          <Key>
+            <PropertyRef Name="AcessoId" />
+          </Key>
+          <Property Name="AcessoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AcessoTipoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AcessoTipo">
+          <Key>
+            <PropertyRef Name="AcessoTipoId" />
+          </Key>
+          <Property Name="AcessoTipoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AcessoTipo" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estado_Quarto">
+          <Key>
+            <PropertyRef Name="Id_Estado_Quarto" />
+          </Key>
+          <Property Name="Id_Estado_Quarto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado_Quarto" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hospedagem">
+          <Key>
+            <PropertyRef Name="Id_Hospedagem" />
+          </Key>
+          <Property Name="Id_Hospedagem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Reserva" Type="int" Nullable="false" />
+          <Property Name="Id_Funcionario" Type="int" Nullable="false" />
+          <Property Name="Data_CheckIn" Type="date" Nullable="false" />
+          <Property Name="Data_CheckOut" Type="date" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Pagamento">
+          <Key>
+            <PropertyRef Name="Id_Pagamento" />
+          </Key>
+          <Property Name="Id_Pagamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Hospedagem" Type="int" Nullable="false" />
+          <Property Name="Id_Funcionario" Type="int" Nullable="false" />
+          <Property Name="Data_Pagamento" Type="datetime" Nullable="false" />
+          <Property Name="Total_Pago" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quarto">
+          <Key>
+            <PropertyRef Name="Id_Quarto" />
+          </Key>
+          <Property Name="Id_Quarto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Id_Quarto_Tipo" Type="int" Nullable="false" />
+          <Property Name="Id_Estado_Quarto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quarto_Tipo">
+          <Key>
+            <PropertyRef Name="Id_Quarto_Tipo" />
+          </Key>
+          <Property Name="Id_Quarto_Tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quarto_Tipo_Descricao" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Valor_Tipo_Quarto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="Id_Reserva" />
+          </Key>
+          <Property Name="Id_Reserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Cliente" Type="int" Nullable="false" />
+          <Property Name="Id_Quarto" Type="int" Nullable="false" />
+          <Property Name="Data_Reserva" Type="date" Nullable="false" />
+          <Property Name="Data_Entrada" Type="date" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Acesso_AcessoTipo">
+          <End Role="AcessoTipo" Type="Self.AcessoTipo" Multiplicity="1" />
+          <End Role="Acesso" Type="Self.Acesso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcessoTipo">
+              <PropertyRef Name="AcessoTipoId" />
+            </Principal>
+            <Dependent Role="Acesso">
+              <PropertyRef Name="AcessoTipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hospedagem_Reserva">
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="1" />
+          <End Role="Hospedagem" Type="Self.Hospedagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reserva">
+              <PropertyRef Name="Id_Reserva" />
+            </Principal>
+            <Dependent Role="Hospedagem">
+              <PropertyRef Name="Id_Reserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Hospedagem">
+          <End Role="Hospedagem" Type="Self.Hospedagem" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospedagem">
+              <PropertyRef Name="Id_Hospedagem" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="Id_Hospedagem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quarto_Estado_Quarto">
+          <End Role="Estado_Quarto" Type="Self.Estado_Quarto" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Quarto">
+              <PropertyRef Name="Id_Estado_Quarto" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="Id_Estado_Quarto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quarto_Quarto_Tipo">
+          <End Role="Quarto_Tipo" Type="Self.Quarto_Tipo" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarto_Tipo">
+              <PropertyRef Name="Id_Quarto_Tipo" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="Id_Quarto_Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Quarto">
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="1" />
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarto">
+              <PropertyRef Name="Id_Quarto" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="Id_Quarto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="SP_AcessoAlterarNomeSenha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cod_Acesso" Type="int" Mode="In" />
+          <Parameter Name="Nome_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Senha_Usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_AcessoLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Senha_Usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_HospedagemCheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Hospedagem" Type="int" Mode="In" />
+          <Parameter Name="Id_Funcionario" Type="int" Mode="In" />
+          <Parameter Name="Total_Pago" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="SP_HospedagemInserir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Reserva" Type="int" Mode="In" />
+          <Parameter Name="Acesso_ID" Type="int" Mode="In" />
+          <Parameter Name="Data_CheckIn" Type="date" Mode="In" />
+          <Parameter Name="Data_CheckOut" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_Quarto_Tipo_PrecoLocalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Quarto_Tipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Quarto_TipoAlterar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Quarto_Tipo" Type="int" Mode="In" />
+          <Parameter Name="Quarto_Tipo_Descricao" Type="varchar" Mode="In" />
+          <Parameter Name="Valor_Tipo_Quarto" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="SP_Quarto_TipoInserir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Quarto_Tipo_Descricao" Type="varchar" Mode="In" />
+          <Parameter Name="Valor_Tipo_Quarto" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="SP_Quarto_TipoLocalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Quarto_Tipo_Descricao" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_QuartoEstadoLocalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Quarto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_QuartoLocalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Quarto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ReservaAlterar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Reserva" Type="int" Mode="In" />
+          <Parameter Name="Id_Cliente" Type="int" Mode="In" />
+          <Parameter Name="Id_Quarto" Type="int" Mode="In" />
+          <Parameter Name="Data_Entrada" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_ReservaInserir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Cliente" Type="int" Mode="In" />
+          <Parameter Name="Id_Quarto" Type="int" Mode="In" />
+          <Parameter Name="Data_Entrada" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_ReservaLocalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome_Cliente" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="EstadiaHotModelStoreContainer">
+          <EntitySet Name="Acesso" EntityType="Self.Acesso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AcessoTipo" EntityType="Self.AcessoTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado_Quarto" EntityType="Self.Estado_Quarto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hospedagem" EntityType="Self.Hospedagem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagamento" EntityType="Self.Pagamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quarto" EntityType="Self.Quarto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quarto_Tipo" EntityType="Self.Quarto_Tipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reserva" EntityType="Self.Reserva" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Acesso_AcessoTipo" Association="Self.FK_Acesso_AcessoTipo">
+            <End Role="AcessoTipo" EntitySet="AcessoTipo" />
+            <End Role="Acesso" EntitySet="Acesso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hospedagem_Reserva" Association="Self.FK_Hospedagem_Reserva">
+            <End Role="Reserva" EntitySet="Reserva" />
+            <End Role="Hospedagem" EntitySet="Hospedagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Hospedagem" Association="Self.FK_Pagamento_Hospedagem">
+            <End Role="Hospedagem" EntitySet="Hospedagem" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quarto_Estado_Quarto" Association="Self.FK_Quarto_Estado_Quarto">
+            <End Role="Estado_Quarto" EntitySet="Estado_Quarto" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quarto_Quarto_Tipo" Association="Self.FK_Quarto_Quarto_Tipo">
+            <End Role="Quarto_Tipo" EntitySet="Quarto_Tipo" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Quarto" Association="Self.FK_Reserva_Quarto">
+            <End Role="Quarto" EntitySet="Quarto" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EstadiaHotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Acesso">
+          <Key>
+            <PropertyRef Name="AcessoId" />
+          </Key>
+          <Property Name="AcessoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AcessoTipoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcessoTipo" Relationship="Self.FK_Acesso_AcessoTipo" FromRole="Acesso" ToRole="AcessoTipo" />
+          <NavigationProperty Name="Hospedagem" Relationship="Self.FK_Hospedagem_Acesso" FromRole="Acesso" ToRole="Hospedagem" />
+          <NavigationProperty Name="Pagamento" Relationship="Self.FK_Pagamento_Acesso" FromRole="Acesso" ToRole="Pagamento" />
+          <NavigationProperty Name="Reserva" Relationship="Self.FK_Reserva_Acesso" FromRole="Acesso" ToRole="Reserva" />
+        </EntityType>
+        <EntityType Name="AcessoTipo">
+          <Key>
+            <PropertyRef Name="AcessoTipoId" />
+          </Key>
+          <Property Name="AcessoTipoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AcessoTipo1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Acesso" Relationship="Self.FK_Acesso_AcessoTipo" FromRole="AcessoTipo" ToRole="Acesso" />
+        </EntityType>
+        <EntityType Name="Estado_Quarto">
+          <Key>
+            <PropertyRef Name="Id_Estado_Quarto" />
+          </Key>
+          <Property Name="Id_Estado_Quarto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado_Quarto1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Quarto" Relationship="Self.FK_Quarto_Estado_Quarto" FromRole="Estado_Quarto" ToRole="Quarto" />
+        </EntityType>
+        <EntityType Name="Hospedagem">
+          <Key>
+            <PropertyRef Name="Id_Hospedagem" />
+          </Key>
+          <Property Name="Id_Hospedagem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Reserva" Type="Int32" Nullable="false" />
+          <Property Name="Id_Funcionario" Type="Int32" Nullable="false" />
+          <Property Name="Data_CheckIn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Data_CheckOut" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Acesso" Relationship="Self.FK_Hospedagem_Acesso" FromRole="Hospedagem" ToRole="Acesso" />
+          <NavigationProperty Name="Reserva" Relationship="Self.FK_Hospedagem_Reserva" FromRole="Hospedagem" ToRole="Reserva" />
+          <NavigationProperty Name="Pagamento" Relationship="Self.FK_Pagamento_Hospedagem" FromRole="Hospedagem" ToRole="Pagamento" />
+        </EntityType>
+        <EntityType Name="Pagamento">
+          <Key>
+            <PropertyRef Name="Id_Pagamento" />
+          </Key>
+          <Property Name="Id_Pagamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Hospedagem" Type="Int32" Nullable="false" />
+          <Property Name="Id_Funcionario" Type="Int32" Nullable="false" />
+          <Property Name="Data_Pagamento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Total_Pago" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Acesso" Relationship="Self.FK_Pagamento_Acesso" FromRole="Pagamento" ToRole="Acesso" />
+          <NavigationProperty Name="Hospedagem" Relationship="Self.FK_Pagamento_Hospedagem" FromRole="Pagamento" ToRole="Hospedagem" />
+        </EntityType>
+        <EntityType Name="Quarto">
+          <Key>
+            <PropertyRef Name="Id_Quarto" />
+          </Key>
+          <Property Name="Id_Quarto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Quarto_Tipo" Type="Int32" Nullable="false" />
+          <Property Name="Id_Estado_Quarto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estado_Quarto" Relationship="Self.FK_Quarto_Estado_Quarto" FromRole="Quarto" ToRole="Estado_Quarto" />
+          <NavigationProperty Name="Quarto_Tipo" Relationship="Self.FK_Quarto_Quarto_Tipo" FromRole="Quarto" ToRole="Quarto_Tipo" />
+          <NavigationProperty Name="Reserva" Relationship="Self.FK_Reserva_Quarto" FromRole="Quarto" ToRole="Reserva" />
+        </EntityType>
+        <EntityType Name="Quarto_Tipo">
+          <Key>
+            <PropertyRef Name="Id_Quarto_Tipo" />
+          </Key>
+          <Property Name="Id_Quarto_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quarto_Tipo_Descricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Valor_Tipo_Quarto" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Quarto" Relationship="Self.FK_Quarto_Quarto_Tipo" FromRole="Quarto_Tipo" ToRole="Quarto" />
+        </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="Id_Reserva" />
+          </Key>
+          <Property Name="Id_Reserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Cliente" Type="Int32" Nullable="false" />
+          <Property Name="Id_Quarto" Type="Int32" Nullable="false" />
+          <Property Name="Data_Reserva" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Data_Entrada" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Acesso" Relationship="Self.FK_Reserva_Acesso" FromRole="Reserva" ToRole="Acesso" />
+          <NavigationProperty Name="Hospedagem" Relationship="Self.FK_Hospedagem_Reserva" FromRole="Reserva" ToRole="Hospedagem" />
+          <NavigationProperty Name="Quarto" Relationship="Self.FK_Reserva_Quarto" FromRole="Reserva" ToRole="Quarto" />
+        </EntityType>
+        <Association Name="FK_Acesso_AcessoTipo">
+          <End Role="AcessoTipo" Type="Self.AcessoTipo" Multiplicity="1" />
+          <End Role="Acesso" Type="Self.Acesso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcessoTipo">
+              <PropertyRef Name="AcessoTipoId" />
+            </Principal>
+            <Dependent Role="Acesso">
+              <PropertyRef Name="AcessoTipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hospedagem_Acesso">
+          <End Role="Acesso" Type="Self.Acesso" Multiplicity="1" />
+          <End Role="Hospedagem" Type="Self.Hospedagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Acesso">
+              <PropertyRef Name="AcessoId" />
+            </Principal>
+            <Dependent Role="Hospedagem">
+              <PropertyRef Name="Id_Funcionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Acesso">
+          <End Role="Acesso" Type="Self.Acesso" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Acesso">
+              <PropertyRef Name="AcessoId" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="Id_Funcionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Acesso">
+          <End Role="Acesso" Type="Self.Acesso" Multiplicity="1" />
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Acesso">
+              <PropertyRef Name="AcessoId" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="Id_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quarto_Estado_Quarto">
+          <End Role="Estado_Quarto" Type="Self.Estado_Quarto" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Quarto">
+              <PropertyRef Name="Id_Estado_Quarto" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="Id_Estado_Quarto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hospedagem_Reserva">
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="1" />
+          <End Role="Hospedagem" Type="Self.Hospedagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reserva">
+              <PropertyRef Name="Id_Reserva" />
+            </Principal>
+            <Dependent Role="Hospedagem">
+              <PropertyRef Name="Id_Reserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Hospedagem">
+          <End Role="Hospedagem" Type="Self.Hospedagem" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospedagem">
+              <PropertyRef Name="Id_Hospedagem" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="Id_Hospedagem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quarto_Quarto_Tipo">
+          <End Role="Quarto_Tipo" Type="Self.Quarto_Tipo" Multiplicity="1" />
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarto_Tipo">
+              <PropertyRef Name="Id_Quarto_Tipo" />
+            </Principal>
+            <Dependent Role="Quarto">
+              <PropertyRef Name="Id_Quarto_Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Quarto">
+          <End Role="Quarto" Type="Self.Quarto" Multiplicity="1" />
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarto">
+              <PropertyRef Name="Id_Quarto" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="Id_Quarto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EstadiaHotEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Acesso" EntityType="Self.Acesso" />
+          <EntitySet Name="AcessoTipo" EntityType="Self.AcessoTipo" />
+          <EntitySet Name="Estado_Quarto" EntityType="Self.Estado_Quarto" />
+          <EntitySet Name="Hospedagem" EntityType="Self.Hospedagem" />
+          <EntitySet Name="Pagamento" EntityType="Self.Pagamento" />
+          <EntitySet Name="Quarto" EntityType="Self.Quarto" />
+          <EntitySet Name="Quarto_Tipo" EntityType="Self.Quarto_Tipo" />
+          <EntitySet Name="Reserva" EntityType="Self.Reserva" />
+          <AssociationSet Name="FK_Acesso_AcessoTipo" Association="Self.FK_Acesso_AcessoTipo">
+            <End Role="AcessoTipo" EntitySet="AcessoTipo" />
+            <End Role="Acesso" EntitySet="Acesso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hospedagem_Acesso" Association="Self.FK_Hospedagem_Acesso">
+            <End Role="Acesso" EntitySet="Acesso" />
+            <End Role="Hospedagem" EntitySet="Hospedagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Acesso" Association="Self.FK_Pagamento_Acesso">
+            <End Role="Acesso" EntitySet="Acesso" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Acesso" Association="Self.FK_Reserva_Acesso">
+            <End Role="Acesso" EntitySet="Acesso" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quarto_Estado_Quarto" Association="Self.FK_Quarto_Estado_Quarto">
+            <End Role="Estado_Quarto" EntitySet="Estado_Quarto" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hospedagem_Reserva" Association="Self.FK_Hospedagem_Reserva">
+            <End Role="Reserva" EntitySet="Reserva" />
+            <End Role="Hospedagem" EntitySet="Hospedagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Hospedagem" Association="Self.FK_Pagamento_Hospedagem">
+            <End Role="Hospedagem" EntitySet="Hospedagem" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quarto_Quarto_Tipo" Association="Self.FK_Quarto_Quarto_Tipo">
+            <End Role="Quarto_Tipo" EntitySet="Quarto_Tipo" />
+            <End Role="Quarto" EntitySet="Quarto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Quarto" Association="Self.FK_Reserva_Quarto">
+            <End Role="Quarto" EntitySet="Quarto" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <FunctionImport Name="SP_AcessoAlterarNomeSenha" ReturnType="Collection(Int32)">
+            <Parameter Name="Cod_Acesso" Mode="In" Type="Int32" />
+            <Parameter Name="Nome_Usuario" Mode="In" Type="String" />
+            <Parameter Name="Senha_Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AcessoLogin" ReturnType="Collection(EstadiaHotModel.SP_AcessoLogin_Result)">
+            <Parameter Name="Nome_Usuario" Mode="In" Type="String" />
+            <Parameter Name="Senha_Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HospedagemAlterar">
+            <Parameter Name="Id_Hospedagem" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Quarto" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Funcionario" Mode="In" Type="Int32" />
+            <Parameter Name="Data_Entrada" Mode="In" Type="DateTime" />
+            <Parameter Name="Data_Saida" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HospedagemCheckOut">
+            <Parameter Name="Id_Hospedagem" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Funcionario" Mode="In" Type="Int32" />
+            <Parameter Name="Total_Pago" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HospedagemClienteInserir">
+            <Parameter Name="Nome_Cliente" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="Boolean" />
+            <Parameter Name="N_BI" Mode="In" Type="String" />
+            <Parameter Name="Data_Nascimento" Mode="In" Type="DateTime" />
+            <Parameter Name="Telefone" Mode="In" Type="String" />
+            <Parameter Name="Id_Quarto" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Funcionario" Mode="In" Type="Int32" />
+            <Parameter Name="Data_Entrada" Mode="In" Type="DateTime" />
+            <Parameter Name="Data_Saida" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HospedagemInserir">
+            <Parameter Name="Id_Reserva" Mode="In" Type="Int32" />
+            <Parameter Name="Acesso_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Data_CheckIn" Mode="In" Type="DateTime" />
+            <Parameter Name="Data_CheckOut" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HospedagemLocalizar">
+          <Parameter Name="Nome_Cliente" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Quarto_Tipo_PrecoLocalizar" ReturnType="Collection(Decimal)">
+          <Parameter Name="Id_Quarto_Tipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Quarto_TipoAlterar" ReturnType="Collection(String)">
+            <Parameter Name="Id_Quarto_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="Quarto_Tipo_Descricao" Mode="In" Type="String" />
+            <Parameter Name="Valor_Tipo_Quarto" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Quarto_TipoInserir" ReturnType="Collection(String)">
+            <Parameter Name="Quarto_Tipo_Descricao" Mode="In" Type="String" />
+            <Parameter Name="Valor_Tipo_Quarto" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Quarto_TipoLocalizar" ReturnType="Collection(EstadiaHotModel.SP_Quarto_TipoLocalizar_Result)">
+          <Parameter Name="Quarto_Tipo_Descricao" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_QuartoAlterar">
+            <Parameter Name="Id_Quarto" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Andar" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Quarto_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Estado_Quarto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_QuartoEstadoLocalizar">
+          <Parameter Name="Quarto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_QuartoInserir">
+            <Parameter Name="Id_Andar" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Quarto_Tipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_QuartoLocalizar">
+          <Parameter Name="Quarto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ReservaAlterar" ReturnType="Collection(String)">
+            <Parameter Name="Id_Reserva" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Quarto" Mode="In" Type="Int32" />
+            <Parameter Name="Data_Entrada" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ReservaInserir" ReturnType="Collection(String)">
+            <Parameter Name="Id_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Quarto" Mode="In" Type="Int32" />
+            <Parameter Name="Data_Entrada" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ReservaLocalizar">
+          <Parameter Name="Nome_Cliente" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ReservaInserir" EntitySet="Reserva" ReturnType="Collection(EstadiaHotModel.Reserva)">
+            <Parameter Name="Id_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Quarto" Mode="In" Type="Int32" />
+            <Parameter Name="Data_Entrada" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_AcessoLogin_Result">
+          <Property Type="Int32" Name="Id_Funcionario" Nullable="false" />
+          <Property Type="String" Name="Nome_Funcionario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Senha_Funcionario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="N_BI" Nullable="false" MaxLength="14" />
+          <Property Type="DateTime" Name="Data_Nascimento" Nullable="false" />
+          <Property Type="Int32" Name="Id_Acesso" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Quarto_TipoLocalizar_Result">
+          <Property Type="Int32" Name="Id_Quarto_Tipo" Nullable="false" />
+          <Property Type="String" Name="Quarto_Tipo_Descricao" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="Valor_Tipo_Quarto" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EstadiaHotModelStoreContainer" CdmEntityContainer="EstadiaHotEntities">
+          <EntitySetMapping Name="Acesso">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Acesso">
+              <MappingFragment StoreEntitySet="Acesso">
+                <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="AcessoTipoId" ColumnName="AcessoTipoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AcessoTipo">
+            <EntityTypeMapping TypeName="EstadiaHotModel.AcessoTipo">
+              <MappingFragment StoreEntitySet="AcessoTipo">
+                <ScalarProperty Name="AcessoTipoId" ColumnName="AcessoTipoId" />
+                <ScalarProperty Name="AcessoTipo1" ColumnName="AcessoTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado_Quarto">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Estado_Quarto">
+              <MappingFragment StoreEntitySet="Estado_Quarto">
+                <ScalarProperty Name="Id_Estado_Quarto" ColumnName="Id_Estado_Quarto" />
+                <ScalarProperty Name="Estado_Quarto1" ColumnName="Estado_Quarto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hospedagem">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Hospedagem">
+              <MappingFragment StoreEntitySet="Hospedagem">
+                <ScalarProperty Name="Id_Hospedagem" ColumnName="Id_Hospedagem" />
+                <ScalarProperty Name="Id_Reserva" ColumnName="Id_Reserva" />
+                <ScalarProperty Name="Id_Funcionario" ColumnName="Id_Funcionario" />
+                <ScalarProperty Name="Data_CheckIn" ColumnName="Data_CheckIn" />
+                <ScalarProperty Name="Data_CheckOut" ColumnName="Data_CheckOut" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagamento">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Pagamento">
+              <MappingFragment StoreEntitySet="Pagamento">
+                <ScalarProperty Name="Id_Pagamento" ColumnName="Id_Pagamento" />
+                <ScalarProperty Name="Id_Hospedagem" ColumnName="Id_Hospedagem" />
+                <ScalarProperty Name="Id_Funcionario" ColumnName="Id_Funcionario" />
+                <ScalarProperty Name="Data_Pagamento" ColumnName="Data_Pagamento" />
+                <ScalarProperty Name="Total_Pago" ColumnName="Total_Pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quarto">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Quarto">
+              <MappingFragment StoreEntitySet="Quarto">
+                <ScalarProperty Name="Id_Quarto" ColumnName="Id_Quarto" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Id_Quarto_Tipo" ColumnName="Id_Quarto_Tipo" />
+                <ScalarProperty Name="Id_Estado_Quarto" ColumnName="Id_Estado_Quarto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quarto_Tipo">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Quarto_Tipo">
+              <MappingFragment StoreEntitySet="Quarto_Tipo">
+                <ScalarProperty Name="Id_Quarto_Tipo" ColumnName="Id_Quarto_Tipo" />
+                <ScalarProperty Name="Quarto_Tipo_Descricao" ColumnName="Quarto_Tipo_Descricao" />
+                <ScalarProperty Name="Valor_Tipo_Quarto" ColumnName="Valor_Tipo_Quarto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reserva">
+            <EntityTypeMapping TypeName="EstadiaHotModel.Reserva">
+              <MappingFragment StoreEntitySet="Reserva">
+                <ScalarProperty Name="Id_Reserva" ColumnName="Id_Reserva" />
+                <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+                <ScalarProperty Name="Id_Quarto" ColumnName="Id_Quarto" />
+                <ScalarProperty Name="Data_Reserva" ColumnName="Data_Reserva" />
+                <ScalarProperty Name="Data_Entrada" ColumnName="Data_Entrada" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AcessoAlterarNomeSenha" FunctionName="EstadiaHotModel.Store.SP_AcessoAlterarNomeSenha" />
+          <FunctionImportMapping FunctionImportName="SP_AcessoLogin" FunctionName="EstadiaHotModel.Store.SP_AcessoLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EstadiaHotModel.SP_AcessoLogin_Result">
+                <ScalarProperty Name="Id_Funcionario" ColumnName="Id_Funcionario" />
+                <ScalarProperty Name="Nome_Funcionario" ColumnName="Nome_Funcionario" />
+                <ScalarProperty Name="Senha_Funcionario" ColumnName="Senha_Funcionario" />
+                <ScalarProperty Name="N_BI" ColumnName="N_BI" />
+                <ScalarProperty Name="Data_Nascimento" ColumnName="Data_Nascimento" />
+                <ScalarProperty Name="Id_Acesso" ColumnName="Id_Acesso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_HospedagemCheckOut" FunctionName="EstadiaHotModel.Store.SP_HospedagemCheckOut" />
+          <FunctionImportMapping FunctionImportName="SP_HospedagemInserir" FunctionName="EstadiaHotModel.Store.SP_HospedagemInserir" />
+          <FunctionImportMapping FunctionImportName="SP_Quarto_Tipo_PrecoLocalizar" FunctionName="EstadiaHotModel.Store.SP_Quarto_Tipo_PrecoLocalizar" />
+          <FunctionImportMapping FunctionImportName="SP_Quarto_TipoAlterar" FunctionName="EstadiaHotModel.Store.SP_Quarto_TipoAlterar" />
+          <FunctionImportMapping FunctionImportName="SP_Quarto_TipoInserir" FunctionName="EstadiaHotModel.Store.SP_Quarto_TipoInserir" />
+          <FunctionImportMapping FunctionImportName="SP_Quarto_TipoLocalizar" FunctionName="EstadiaHotModel.Store.SP_Quarto_TipoLocalizar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EstadiaHotModel.SP_Quarto_TipoLocalizar_Result">
+                <ScalarProperty Name="Id_Quarto_Tipo" ColumnName="Id_Quarto_Tipo" />
+                <ScalarProperty Name="Quarto_Tipo_Descricao" ColumnName="Quarto_Tipo_Descricao" />
+                <ScalarProperty Name="Valor_Tipo_Quarto" ColumnName="Valor_Tipo_Quarto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_QuartoEstadoLocalizar" FunctionName="EstadiaHotModel.Store.SP_QuartoEstadoLocalizar" />
+          <FunctionImportMapping FunctionImportName="SP_QuartoLocalizar" FunctionName="EstadiaHotModel.Store.SP_QuartoLocalizar" />
+          <FunctionImportMapping FunctionImportName="SP_ReservaAlterar" FunctionName="EstadiaHotModel.Store.SP_ReservaAlterar" />
+          <FunctionImportMapping FunctionImportName="SP_ReservaInserir" FunctionName="EstadiaHotModel.Store.SP_ReservaInserir" />
+          <FunctionImportMapping FunctionImportName="SP_ReservaLocalizar" FunctionName="EstadiaHotModel.Store.SP_ReservaLocalizar" />
+          <FunctionImportMapping FunctionImportName="ReservaInserir" FunctionName="EstadiaHotModel.Store.SP_ReservaInserir" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

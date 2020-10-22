@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="368559f9bf224806b0e6ac99a4b02024" Name="Diagram1">
+        <EntityTypeShape EntityType="EstadiaHotModel.Acesso" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.AcessoTipo" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Cliente" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Estado_Quarto" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Funcionario" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Hospedagem" Width="1.5" PointX="9.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Pagamento" Width="1.5" PointX="12" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Pedidos" Width="1.5" PointX="12" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Quarto" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Quarto_Tipo" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Reserva" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EstadiaHotModel.Servico_Quarto" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Acesso_AcessoTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Cliente_Acesso" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Funcionario_Acesso" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Reserva_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Quarto_Estado_Quarto" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Hospedagem_Funcionario" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Pagamento_Funcionario" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Hospedagem_Reserva" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Pagamento_Hospedagem" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Pedidos_Hospedagem" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Pedidos_Servico" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Quarto_Quarto_Tipo" ManuallyRouted="false" />
+        <AssociationConnector Association="EstadiaHotModel.FK_Reserva_Quarto" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

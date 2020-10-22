@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title - EstádiaHot</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/responsive.css" rel="stylesheet" />
+    <link href="~/Content/novoLook.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <!-- Marca/Brand  (Botão/Toggle)Agrupa melhor o menu para diferentes telas-->
+
+                <a class="navbar-brand logo_h" href="#">
+                    <img src="~/image/Logo.png" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+
+                       @* <li class="nav-item">@Html.ActionLink("Meus dados", "About", "Home", new { area = "Home" }, new { @class = "nav-link" })</li>*@
+
+                        <li class="nav-item">@Html.ActionLink("Reservar", "Index", "ReservasCliente", new { area = "ReservasCliente" }, new { @class = "nav-link" })</li>
+                        
+                        <li class="nav-item">
+                            @Html.Partial("_UsuarioActualPartial")
+                        </li>
+                    </ul>
+
+                    @*@Html.Partial("_LoginPartial")*@
+                </div>
+            </nav>
+        </div>
+
+    </nav>
+
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <article class="col-md-4">
+                    <h1>Aviso!</h1>
+                    <p>
+                        Está página é temporária <br />
+                        Estamos a fazer algumas actualizações no sistema <br />
+                        Obrigado pela compreensão.
+                    </p>
+                </article>
+
+                <aside class="col-md-8">
+                    @RenderBody()
+                </aside>
+                <hr />
+            </div>
+            <footer class="pull-right">
+                <p>&copy; @DateTime.Now.Year - EstádiaHot</p>
+            </footer>
+        </div>
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/custom.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

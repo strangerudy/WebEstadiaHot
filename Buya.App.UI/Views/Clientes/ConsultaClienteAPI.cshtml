@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Buya.App.UI.ViewModels.Clientes.ClienteVM>
+
+
+@{
+    ViewBag.Title = "Clientes Na API";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("ConsultaClienteAPI", "Clientes", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("Nome do cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-offset-2 col-md-10">
+            @Html.Editor("parametroBD", new { htmlAttributes = new { @class = "caixaTexto" } })
+            <input type="submit" value="Pesquisar" class="btn btn-danger" />
+
+        </div>
+    </div>
+}
+
+
+<p class="botaolink">
+    @Html.ActionLink("Novo Cliente", "Create")
+</p>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="tabelacabecalho">
+                <th>Nome do Cliente</th>
+                <th>Nº do BI</th>
+                <th>Data de Nascimento</th>
+                <th>Gênero</th>
+                <th>Nº de Telefone</th>
+                <th>Data de Registro</th>
+
+                <th>Operações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tabelacorpo">
+                    <td class="">@Html.DisplayFor(modelItem => item.Nome_Cliente)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Num_BI)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DataNascimento)</td>
+                    @{
+                        if (item.Sexo == true)
+                        {
+                            <td>@Html.DisplayName("Masculino")</td>
+                        }
+                        else
+                        {
+                            <td>@Html.DisplayName("Feminino")</td>
+                        }
+                    }
+                    <td>@Html.DisplayFor(modelItem => item.Num_Telefone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DataCadastro)</td>
+
+
+                    <td class="tabelaCorpoOperacoes">
+                        @Html.ActionLink("Alterar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
